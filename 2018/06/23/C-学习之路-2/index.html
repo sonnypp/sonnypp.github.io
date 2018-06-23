@@ -1,0 +1,53 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> C#学习之路(2) · sonnypp</title><meta name="description" content="C#学习之路(2) - SUE"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="sonnypp"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/sonnypp" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">C#学习之路(2)</h1><div class="post-info">Jun 23, 2018</div><div class="post-content"><h1 id="C-程序结构"><a href="#C-程序结构" class="headerlink" title="C#程序结构"></a>C#程序结构</h1><h2 id="C-Hello-World-实例"><a href="#C-Hello-World-实例" class="headerlink" title="C# Hello World 实例"></a>C# Hello World 实例</h2><p>一个C#程序主要包括以下部分：</p>
+<ul>
+<li>命名空间声明(namespace declaration)</li>
+<li>一个class</li>
+<li>Class方法</li>
+<li>Class属性</li>
+<li>一个Main方法</li>
+<li>语句（Statement）&amp;表达式（Expressions）</li>
+<li>注释</li>
+</ul>
+<p>让我们看一个可以打印”Hello World“的简单的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">namespace HelloWorldApplication</span><br><span class="line">&#123;</span><br><span class="line">    class HelloWorld</span><br><span class="line">    &#123;</span><br><span class="line">        static void main(string[] args) &#123;</span><br><span class="line">            /*我的第一个C#程序*/</span><br><span class="line">            Console.WriteLine(&quot;Hello World&quot;);</span><br><span class="line">            Console.ReadKey();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当上面的代码执行被编译和执行时，它会产生下列结构：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hello World</span><br></pre></td></tr></table></figure>
+<p>让我们看看上面程序的各个部分：</p>
+<ul>
+<li>程序的第一行using System；-using 关键字用于在程序中包含System命名空间。一个程序一般有多个using语句。</li>
+<li>下一行是namespace声明。一个namespace是一个系列的类。HelloWorldApplication命名空间包含了类HelloWorld。</li>
+<li>下一行是class声明。类HelloWold包含了程序使用的数据和方法声明。类一般包含多个方法。方法定义了类的行为。在这里，HelloWorld类只有一个Main方法。</li>
+<li>下一行定义了Main方法，是所有C#程序的入口点。Main方法说明当执行时，类将做什么动作。</li>
+<li>下一行<code>/*...*/</code>被编译器忽略，且它会在程序中添加额外的注释。</li>
+<li>Main方法通过语句Console.WriteLine（”Hello World“）；指定了它的行为。WriteLine是一个定义在System命名空间中的Console类的一个方法。该语句在屏幕上显示消息”Hello World“</li>
+<li>最后一行Console.ReadKey()；是针对VS.NET用户的。这使得程序会等待一个按键的动作，防止程序从Visual Studio .NET启动时屏幕会快速运行并关闭.</li>
+</ul>
+<p>以下几点值得注意：</p>
+<ul>
+<li>C#是大小写敏感的。</li>
+<li>所有的语句和表达式必须以分号结尾</li>
+<li>程序执行是从Main方法开始的</li>
+<li>与Java不同的是，文件名可以不同于类的名称</li>
+</ul>
+<h2 id="编译-amp-执行-C-程序"><a href="#编译-amp-执行-C-程序" class="headerlink" title="编译 &amp; 执行 C# 程序"></a>编译 &amp; 执行 C# 程序</h2><p>如果您使用 Visual Studio.Net 编译和执行 C# 程序，请按下面的步骤进行：</p>
+<ul>
+<li>启动 Visual Studio。</li>
+<li>在菜单栏上，选择 File -&gt; New -&gt; Project。</li>
+<li>从模板中选择 Visual C#，然后选择 Windows。</li>
+<li>选择 Console Application。</li>
+<li>为您的项目制定一个名称，然后点击 OK 按钮。</li>
+<li>新项目会出现在解决方案资源管理器（Solution Explorer）中。</li>
+<li>在代码编辑器（Code Editor）中编写代码。</li>
+<li>点击 Run 按钮或者按下 F5 键来运行程序。会出现一个命令提示符窗口（Command Prompt window），显示 Hello World。</li>
+</ul>
+<p>您也可以使用命令行代替 Visual Studio IDE 来编译 C# 程序：</p>
+<ul>
+<li>打开一个文本编辑器，添加上面提到的代码。</li>
+<li>保存文件为 <strong>helloworld.cs</strong>。</li>
+<li>打开命令提示符工具，定位到文件所保存的目录。</li>
+<li>键入 <strong>csc helloworld.cs</strong> 并按下 enter 键来编译代码。</li>
+<li>如果代码没有错误，命令提示符会进入下一行，并生成 <strong>helloworld.exe</strong> 可执行文件。</li>
+<li>接下来，键入 <strong>helloworld</strong> 来执行程序。</li>
+<li>您将看到 “Hello World” 打印在屏幕上。</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2018/06/23/C-学习之路-3/" class="prev">上一篇</a><a href="/2018/06/23/C-学习之路-1/" class="next">下一篇</a></div><div class="copyright"><p>© 2015 - 2018 <a href="http://yoursite.com">SUE</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
