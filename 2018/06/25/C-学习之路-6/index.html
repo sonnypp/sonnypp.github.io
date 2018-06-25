@@ -1,0 +1,91 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> C#学习之路(6) · sonnypp</title><meta name="description" content="C#学习之路(6) - SUE"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="sonnypp"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/sonnypp" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">C#学习之路(6)</h1><div class="post-info">Jun 25, 2018</div><div class="post-content"><h1 id="C-判断"><a href="#C-判断" class="headerlink" title="C# 判断"></a>C# 判断</h1><p>判断结构要求程序员指定一个或多个要评估或测试的条件，以及条件为真时要执行的语句（必需的）和条件为假时要执行的语句（可选的）。</p>
+<p>下面是大多数编程语言中典型的判断结构的一般形式：<img src="http://www.runoob.com/wp-content/uploads/2015/12/if.png" alt="C# 中的判断语句"></p>
+<h2 id="判断语句"><a href="#判断语句" class="headerlink" title="判断语句"></a>判断语句</h2><p>C# 提供了以下类型的判断语句。点击链接查看每个语句的细节。</p>
+<table>
+<thead>
+<tr>
+<th>语句</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="http://www.runoob.com/csharp/csharp-if.html" target="_blank" rel="noopener">if 语句</a></td>
+<td>一个 <strong>if 语句</strong> 由一个布尔表达式后跟一个或多个语句组成。</td>
+</tr>
+<tr>
+<td><a href="http://www.runoob.com/csharp/csharp-if-else.html" target="_blank" rel="noopener">if…else 语句</a></td>
+<td>一个 <strong>if 语句</strong> 后可跟一个可选的 <strong>else 语句</strong>，else 语句在布尔表达式为假时执行。</td>
+</tr>
+<tr>
+<td><a href="http://www.runoob.com/csharp/csharp-nested-if.html" target="_blank" rel="noopener">嵌套 if 语句</a></td>
+<td>您可以在一个 <strong>if</strong> 或 <strong>else if</strong> 语句内使用另一个 <strong>if</strong> 或 <strong>else if</strong> 语句。</td>
+</tr>
+<tr>
+<td><a href="http://www.runoob.com/csharp/csharp-switch.html" target="_blank" rel="noopener">switch 语句</a></td>
+<td>一个 <strong>switch</strong> 语句允许测试一个变量等于多个值时的情况。</td>
+</tr>
+<tr>
+<td><a href="http://www.runoob.com/csharp/csharp-nested-switch.html" target="_blank" rel="noopener">嵌套 switch 语句</a></td>
+<td>您可以在一个 <strong>switch</strong> 语句内使用另一个 <strong>switch</strong> 语句。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="运算符"><a href="#运算符" class="headerlink" title="? : 运算符"></a>? : 运算符</h2><p>我们已经在前面的章节中讲解了 <strong>条件运算符 ? :</strong>，可以用来替代 <strong>if…else</strong> 语句。它的一般形式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Exp1 ? Exp2 : Exp3;</span><br></pre></td></tr></table></figure>
+<p>其中，Exp1、Exp2 和 Exp3 是表达式。请注意，冒号的使用和位置。</p>
+<p>? 表达式的值是由 Exp1 决定的。如果 Exp1 为真，则计算 Exp2 的值，结果即为整个 ? 表达式的值。如果 Exp1 为假，则计算 Exp3 的值，结果即为整个 ? 表达式的值。</p>
+<h1 id="C-循环"><a href="#C-循环" class="headerlink" title="C# 循环"></a>C# 循环</h1><p>有的时候，可能需要多次执行同一块代码。一般情况下，语句是顺序执行的：函数中的第一个语句先执行，接着是第二个语句，依此类推。</p>
+<p>编程语言提供了允许更为复杂的执行路径的多种控制结构。</p>
+<p>循环语句允许我们多次执行一个语句或语句组，下面是大多数编程语言中循环语句的一般形式：<img src="http://www.runoob.com/wp-content/uploads/2014/04/loop_architecture.jpg" alt="循环结构"></p>
+<h2 id="循环类型"><a href="#循环类型" class="headerlink" title="循环类型"></a>循环类型</h2><p>C# 提供了以下几种循环类型。点击链接查看每个类型的细节。</p>
+<table>
+<thead>
+<tr>
+<th>循环类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="http://www.runoob.com/csharp/csharp-while-loop.html" target="_blank" rel="noopener">while 循环</a></td>
+<td>当给定条件为真时，重复语句或语句组。它会在执行循环主体之前测试条件。</td>
+</tr>
+<tr>
+<td><a href="http://www.runoob.com/csharp/csharp-for-loop.html" target="_blank" rel="noopener">for/foreach 循环</a></td>
+<td>多次执行一个语句序列，简化管理循环变量的代码。</td>
+</tr>
+<tr>
+<td><a href="http://www.runoob.com/csharp/csharp-do-while-loop.html" target="_blank" rel="noopener">do…while 循环</a></td>
+<td>除了它是在循环主体结尾测试条件外，其他与 while 语句类似。</td>
+</tr>
+<tr>
+<td><a href="http://www.runoob.com/csharp/csharp-nested-loops.html" target="_blank" rel="noopener">嵌套循环</a></td>
+<td>您可以在 while、for 或 do..while 循环内使用一个或多个循环。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="循环控制语句"><a href="#循环控制语句" class="headerlink" title="循环控制语句"></a>循环控制语句</h2><p>循环控制语句更改执行的正常序列。当执行离开一个范围时，所有在该范围中创建的自动对象都会被销毁。</p>
+<p>C# 提供了下列的控制语句。点击链接查看每个语句的细节。</p>
+<table>
+<thead>
+<tr>
+<th>控制语句</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="http://www.runoob.com/csharp/csharp-break-statement.html" target="_blank" rel="noopener">break 语句</a></td>
+<td>终止 <strong>loop</strong> 或 <strong>switch</strong> 语句，程序流将继续执行紧接着 loop 或 switch 的下一条语句。</td>
+</tr>
+<tr>
+<td><a href="http://www.runoob.com/csharp/csharp-continue-statement.html" target="_blank" rel="noopener">continue 语句</a></td>
+<td>引起循环跳过主体的剩余部分，立即重新开始测试条件。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="无限循环"><a href="#无限循环" class="headerlink" title="无限循环"></a>无限循环</h2><p>如果条件永远不为假，则循环将变成无限循环。<strong>for</strong> 循环在传统意义上可用于实现无限循环。由于构成循环的三个表达式中任何一个都不是必需的，您可以将某些条件表达式留空来构成一个无限循环。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line"></span><br><span class="line">namespace Loops</span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">    class Program</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            for (; ; )</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(&quot;Hey! I am Trapped&quot;);</span><br><span class="line">            &#125;</span><br><span class="line"> </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当条件表达式不存在时，它被假设为真。您也可以设置一个初始值和增量表达式，但是一般情况下，程序员偏向于使用 for(;;) 结构来表示一个无限循环。 </p>
+</div></article></div></main><footer><div class="paginator"><a href="/2018/06/25/C-学习之路-7/" class="prev">上一篇</a><a href="/2018/06/25/C-学习之路-5/" class="next">下一篇</a></div><div class="copyright"><p>© 2015 - 2018 <a href="http://yoursite.com">SUE</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
