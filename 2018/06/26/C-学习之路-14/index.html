@@ -1,0 +1,115 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> C#学习之路(14) · sonnypp</title><meta name="description" content="C#学习之路(14) - SUE"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="sonnypp"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/sonnypp" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">C#学习之路(14)</h1><div class="post-info">Jun 26, 2018</div><div class="post-content"><h1 id="C-命名空间（Namespace）"><a href="#C-命名空间（Namespace）" class="headerlink" title="C# 命名空间（Namespace）"></a>C# 命名空间（Namespace）</h1><p><strong>命名空间</strong>的设计目的是提供一种让一组名称与其他名称分隔开的方式。在一个命名空间中声明的类的名称与另一个命名空间中声明的相同的类的名称不冲突。 </p>
+<h2 id="定义命名空间"><a href="#定义命名空间" class="headerlink" title="定义命名空间"></a>定义命名空间</h2><p>命名空间的定义是以关键字 <strong>namespace</strong> 开始，后跟命名空间的名称，如下所示： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">namespace namespace_name</span><br><span class="line">&#123;</span><br><span class="line">   // 代码声明</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为了调用支持命名空间版本的函数或变量，会把命名空间的名称置于前面，如下所示： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">namespace_name.item_name;</span><br></pre></td></tr></table></figure>
+<p>下面的程序演示了命名空间的用法： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">namespace first_space</span><br><span class="line">&#123;</span><br><span class="line">    class namespace_c1</span><br><span class="line">    &#123;</span><br><span class="line">        public void func()</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(&quot;Inside first_space&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">namespace second_space</span><br><span class="line">&#123;</span><br><span class="line">    class namespace_c2</span><br><span class="line">    &#123;</span><br><span class="line">        public void func()</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(&quot;Inside second_space&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class TestClass</span><br><span class="line">&#123;</span><br><span class="line">    static void Main(string[] args)</span><br><span class="line">    &#123;</span><br><span class="line">        first_space.namespace_c1 fc = new first_space.namespace_c1();</span><br><span class="line">        second_space.namespace_c2 sc = new second_space.namespace_c2();</span><br><span class="line">        fc.func();</span><br><span class="line">        sc.func();</span><br><span class="line">        Console.ReadKey();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当上面的代码被编译和执行时，它会产生下列结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Inside first_space</span><br><span class="line">Inside second_space</span><br></pre></td></tr></table></figure>
+<h2 id="using-关键字"><a href="#using-关键字" class="headerlink" title="using 关键字"></a><em>using</em> 关键字</h2><p><strong>using</strong> 关键字表明程序使用的是给定命名空间中的名称。例如，我们在程序中使用 <strong>System</strong> 命名空间，其中定义了类 Console。我们可以只写： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Console.WriteLine(&quot;Hello there&quot;);</span><br></pre></td></tr></table></figure>
+<p>我们可以写完全限定名称，如下： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.Console.WriteLine(&quot;Hello there&quot;);</span><br></pre></td></tr></table></figure>
+<p>您也可以使用 <strong>using</strong> 命名空间指令，这样在使用的时候就不用在前面加上命名空间名称。该指令告诉编译器随后的代码使用了指定命名空间中的名称。下面的代码演示了命名空间的应用。</p>
+<p>让我们使用 using 指定重写上面的实例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using first_space;</span><br><span class="line">using second_space;</span><br><span class="line"></span><br><span class="line">namespace first_space</span><br><span class="line">&#123;</span><br><span class="line">   class abc</span><br><span class="line">   &#123;</span><br><span class="line">      public void func()</span><br><span class="line">      &#123;</span><br><span class="line">         Console.WriteLine(&quot;Inside first_space&quot;);</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line">namespace second_space</span><br><span class="line">&#123;</span><br><span class="line">   class efg</span><br><span class="line">   &#123;</span><br><span class="line">      public void func()</span><br><span class="line">      &#123;</span><br><span class="line">         Console.WriteLine(&quot;Inside second_space&quot;);</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;   </span><br><span class="line">class TestClass</span><br><span class="line">&#123;</span><br><span class="line">   static void Main(string[] args)</span><br><span class="line">   &#123;</span><br><span class="line">      abc fc = new abc();</span><br><span class="line">      efg sc = new efg();</span><br><span class="line">      fc.func();</span><br><span class="line">      sc.func();</span><br><span class="line">      Console.ReadKey();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当上面的代码被编译和执行时，它会产生下列结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Inside first_space</span><br><span class="line">Inside second_space</span><br></pre></td></tr></table></figure>
+<h2 id="嵌套命名空间"><a href="#嵌套命名空间" class="headerlink" title="嵌套命名空间"></a>嵌套命名空间</h2><p>命名空间可以被嵌套，即您可以在一个命名空间内定义另一个命名空间，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">namespace namespace_name1 </span><br><span class="line">&#123;</span><br><span class="line">   // 代码声明</span><br><span class="line">   namespace namespace_name2 </span><br><span class="line">   &#123;</span><br><span class="line">     // 代码声明</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>您可以使用点（.）运算符访问嵌套的命名空间的成员，如下所示： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using SomeNameSpace;</span><br><span class="line">using SomeNameSpace.Nested;</span><br><span class="line"></span><br><span class="line">namespace SomeNameSpace</span><br><span class="line">&#123;</span><br><span class="line">    public class MyClass </span><br><span class="line">    &#123;</span><br><span class="line">        static void Main() </span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(&quot;In SomeNameSpace&quot;);</span><br><span class="line">            Nested.NestedNameSpaceClass.SayHello();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 内嵌命名空间</span><br><span class="line">    namespace Nested   </span><br><span class="line">    &#123;</span><br><span class="line">        public class NestedNameSpaceClass </span><br><span class="line">        &#123;</span><br><span class="line">            public static void SayHello() </span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(&quot;In Nested&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当上面的代码被编译和执行时，它会产生下列结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">In SomeNameSpace</span><br><span class="line">In Nested</span><br></pre></td></tr></table></figure>
+<h2 id="using的用法："><a href="#using的用法：" class="headerlink" title="using的用法："></a>using的用法：</h2><p><strong>1. using指令：引入命名空间</strong></p>
+<p>这是最常见的用法，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using Namespace1.SubNameSpace;</span><br></pre></td></tr></table></figure>
+<p><strong>2. using static 指令：指定无需指定类型名称即可访问其静态成员的类型</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">using static System.Math;var = PI; // 直接使用System.Math.PI</span><br></pre></td></tr></table></figure>
+<p><strong>3. 起别名</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">using Project = PC.MyCompany.Project;</span><br></pre></td></tr></table></figure>
+<p><strong>4. using语句：将实例与代码绑定</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">using (Font font3 = new Font(&quot;Arial&quot;, 10.0f),</span><br><span class="line">            font4 = new Font(&quot;Arial&quot;, 10.0f))</span><br><span class="line">&#123;</span><br><span class="line">    // Use font3 and font4.</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代码段结束时，自动调用font3和font4的Dispose方法，释放实例。</p>
+<h1 id="C-预处理器指令"><a href="#C-预处理器指令" class="headerlink" title="C# 预处理器指令"></a>C# 预处理器指令</h1><p>预处理器指令指导编译器在实际编译开始之前对信息进行预处理。</p>
+<p>所有的预处理器指令都是以 # 开始。且在一行上，只有空白字符可以出现在预处理器指令之前。预处理器指令不是语句，所以它们不以分号（;）结束。</p>
+<p>C# 编译器没有一个单独的预处理器，但是，指令被处理时就像是有一个单独的预处理器一样。在 C# 中，预处理器指令用于在条件编译中起作用。与 C 和 C++ 不同的是，它们不是用来创建宏。一个预处理器指令必须是该行上的唯一指令。</p>
+<h2 id="C-预处理器指令列表"><a href="#C-预处理器指令列表" class="headerlink" title="C# 预处理器指令列表"></a>C# 预处理器指令列表</h2><p>下表列出了 C# 中可用的预处理器指令：</p>
+<table>
+<thead>
+<tr>
+<th>预处理器指令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>#define</td>
+<td>它用于定义一系列成为符号的字符。</td>
+</tr>
+<tr>
+<td>#undef</td>
+<td>它用于取消定义符号。</td>
+</tr>
+<tr>
+<td>#if</td>
+<td>它用于测试符号是否为真。</td>
+</tr>
+<tr>
+<td>#else</td>
+<td>它用于创建复合条件指令，与 #if 一起使用。</td>
+</tr>
+<tr>
+<td>#elif</td>
+<td>它用于创建复合条件指令。</td>
+</tr>
+<tr>
+<td>#endif</td>
+<td>指定一个条件指令的结束。</td>
+</tr>
+<tr>
+<td>#line</td>
+<td>它可以让您修改编译器的行数以及（可选地）输出错误和警告的文件名。</td>
+</tr>
+<tr>
+<td>#error</td>
+<td>它允许从代码的指定位置生成一个错误。</td>
+</tr>
+<tr>
+<td>#warning</td>
+<td>它允许从代码的指定位置生成一级警告。</td>
+</tr>
+<tr>
+<td>#region</td>
+<td>它可以让您在使用 Visual Studio Code Editor 的大纲特性时，指定一个可展开或折叠的代码块。</td>
+</tr>
+<tr>
+<td>#endregion</td>
+<td>它标识着 #region 块的结束。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="define-预处理器"><a href="#define-预处理器" class="headerlink" title="#define 预处理器"></a>#define 预处理器</h2><p>#define预处理器指令创建符号常量。</p>
+<p>#define允许您定义一个符号，这样，通过使用符号作为传递给#if指令的表达式，表达式将返回true。它的语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#define symbol</span><br></pre></td></tr></table></figure>
+<p>下面的程序说明了这点： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#define PI</span><br><span class="line">using System;</span><br><span class="line">namespace PreprocessorDApp1</span><br><span class="line">&#123;</span><br><span class="line">    class Program</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            #if (PI)</span><br><span class="line">                Console.WriteLine(&quot;PI is defined&quot;);</span><br><span class="line">            #else</span><br><span class="line">                Console.WriteLine(&quot;PI is not defined&quot;);</span><br><span class="line">            #endif</span><br><span class="line">                Console.ReadKey();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当上面的代码被编译和执行时，它会产生下列结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PI is defined</span><br></pre></td></tr></table></figure>
+<h2 id="条件指令"><a href="#条件指令" class="headerlink" title="条件指令"></a>条件指令</h2><p>您可以使用 #if 指令来创建一个条件指令。条件指令用于测试符号是否为真。如果为真，编译器会执行 #if 和下一个指令之间的代码。</p>
+<p>条件指令的语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#if symbol [operator symbol]...</span><br></pre></td></tr></table></figure>
+<p>其中，<em>symbol</em> 是要测试的符号名称。您也可以使用 true 和 false，或在符号前放置否定运算符。</p>
+<p>常见运算符有：</p>
+<ul>
+<li>== (等于)</li>
+<li>!= (不等于)</li>
+<li>&amp;&amp; (与)</li>
+<li>|| (或)</li>
+</ul>
+<p>您也可以用括号把符号和运算符进行分组。条件指令用于在调试版本或编译指定配置时编译代码。一个以 <strong>#if</strong> 指令开始的条件指令，必须显示地以一个 <strong>#endif</strong> 指令终止。</p>
+<p>下面的程序演示了条件指令的用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#define DEBUG</span><br><span class="line">#define VC_V10</span><br><span class="line">using System;</span><br><span class="line">public class TestClass</span><br><span class="line">&#123;</span><br><span class="line">   public static void Main()</span><br><span class="line">   &#123;</span><br><span class="line"></span><br><span class="line">      #if (DEBUG &amp;&amp; !VC_V10)</span><br><span class="line">         Console.WriteLine(&quot;DEBUG is defined&quot;);</span><br><span class="line">      #elif (!DEBUG &amp;&amp; VC_V10)</span><br><span class="line">         Console.WriteLine(&quot;VC_V10 is defined&quot;);</span><br><span class="line">      #elif (DEBUG &amp;&amp; VC_V10)</span><br><span class="line">         Console.WriteLine(&quot;DEBUG and VC_V10 are defined&quot;);</span><br><span class="line">      #else</span><br><span class="line">         Console.WriteLine(&quot;DEBUG and VC_V10 are not defined&quot;);</span><br><span class="line">      #endif</span><br><span class="line">      Console.ReadKey();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当上面的代码被编译和执行时，它会产生下列结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DEBUG and VC_V10 are defined</span><br></pre></td></tr></table></figure></div></article></div></main><footer><div class="paginator"><a href="/2018/06/26/C-学习之路-13/" class="next">NEXT</a></div><div class="copyright"><p>© 2015 - 2018 <a href="http://yoursite.com">SUE</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

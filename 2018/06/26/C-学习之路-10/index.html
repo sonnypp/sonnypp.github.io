@@ -1,0 +1,274 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> C#学习之路(10) · sonnypp</title><meta name="description" content="C#学习之路(10) - SUE"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="sonnypp"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/sonnypp" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">C#学习之路(10)</h1><div class="post-info">Jun 26, 2018</div><div class="post-content"><h1 id="C-数组（Array）"><a href="#C-数组（Array）" class="headerlink" title="C# 数组（Array）"></a>C# 数组（Array）</h1><p>数组是一个存储相同类型元素的固定大小的顺序集合。数组是用来存储数据的集合，通常认为数组是一个同一类型变量的集合。</p>
+<p>声明数组变量并不是声明 number0、number1、…、number99 一个个单独的变量，而是声明一个就像 numbers 这样的变量，然后使用 numbers[0]、numbers[1]、…、numbers[99] 来表示一个个单独的变量。数组中某个指定的元素是通过索引来访问的。</p>
+<p>所有的数组都是由连续的内存位置组成的。最低的地址对应第一个元素，最高的地址对应最后一个元素。</p>
+<p><img src="http://www.runoob.com/wp-content/uploads/2014/04/arrays.jpg" alt="C# 中的数组"></p>
+<h2 id="声明数组"><a href="#声明数组" class="headerlink" title="声明数组"></a>声明数组</h2><p>在C#中声明一个数组，您可以使用下面的语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">datayype[] arrayName;</span><br></pre></td></tr></table></figure>
+<p>其中，</p>
+<ul>
+<li>datatype用于指定被存储在数组中的元素的类型。</li>
+<li>[]指定数组的秩（维度）。秩指定数组的大小。</li>
+<li>arrayName指定数组的名称。</li>
+</ul>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">double[] balance;</span><br></pre></td></tr></table></figure>
+<h2 id="初始化数组"><a href="#初始化数组" class="headerlink" title="初始化数组"></a>初始化数组</h2><p>声明一个数组不会在内存中初始化数组，当初始化数组变量时，您可以赋值给数组。</p>
+<p>数组是一个引用类型，所以您需要使用 <strong>new</strong>关键字来创建数组的实例。</p>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">double[] balance = new double[10];</span><br></pre></td></tr></table></figure>
+<h2 id="赋值给数组"><a href="#赋值给数组" class="headerlink" title="赋值给数组"></a>赋值给数组</h2><p>您可以通过使用索引号赋值给一个单独的数组元素，比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">double[] balance = &#123;2340.0,4523.69,3421.0&#125;</span><br></pre></td></tr></table></figure>
+<p>您也可以创建并且初始化一个数组，比如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int[] marks = new int[5] &#123;99,98,92,97,95&#125;;</span><br></pre></td></tr></table></figure>
+<p>在上述情况下，你也可以忽略数组的大小，比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int[] marks = new int[] &#123;99,98,92,97,95&#125;;</span><br></pre></td></tr></table></figure>
+<p>您也可以赋值一个数组变量到另一个目标数组变量中。在这种情况下，目标和源会指向相同的内存位置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int [] marks = new int[]  &#123; 99,  98, 92, 97, 95&#125;;</span><br><span class="line">int[] score = marks;</span><br></pre></td></tr></table></figure>
+<p>当您创建一个数组时，C# 编译器会根据数组类型隐式初始化每个数组元素为一个默认值。例如，int 数组的所有元素都会被初始化为 0。</p>
+<h2 id="访问数组元素"><a href="#访问数组元素" class="headerlink" title="访问数组元素"></a>访问数组元素</h2><p>元素是通过带索引的数组名称来访问的。这是通过把元素的索引位置数组名称后的方括号中来实现的。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">double salary = balance[9];</span><br></pre></td></tr></table></figure>
+<p>下面是一个实例，使用上面提到的三个概念，即声明、赋值、访问数组： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">namespace ArrayApplication</span><br><span class="line">&#123;</span><br><span class="line">    class MyArray</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            int[] n = new int[10] ; /*n是一个带有10个整数的数组*/</span><br><span class="line">            int i,j;</span><br><span class="line">            /*初始化数组n中的元素*/</span><br><span class="line">            for(i=0;i&lt;10;i++)</span><br><span class="line">            &#123;</span><br><span class="line">                n[i] = i+100;</span><br><span class="line">            &#125;</span><br><span class="line">            /*输出每个数组元素的值*/</span><br><span class="line">            for(j=0;j&lt;10;j++)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(&quot;Element[&#123;0&#125;] = &#123;1&#125;&quot;,j,n[j]);</span><br><span class="line">            &#125;</span><br><span class="line">            Console.ReadKey();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当上面代码被编译和执行时，它会产生下列结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Element[0] = 100</span><br><span class="line">Element[1] = 101</span><br><span class="line">Element[2] = 102</span><br><span class="line">Element[3] = 103</span><br><span class="line">Element[4] = 104</span><br><span class="line">Element[5] = 105</span><br><span class="line">Element[6] = 106</span><br><span class="line">Element[7] = 107</span><br><span class="line">Element[8] = 108</span><br><span class="line">Element[9] = 109</span><br></pre></td></tr></table></figure>
+<h2 id="使用-foreach-循环"><a href="#使用-foreach-循环" class="headerlink" title="使用 foreach 循环"></a>使用 <em>foreach</em> 循环</h2><p>在前面的实例中，我们使用一个 for 循环来访问每个数组元素。您也可以使用一个 <strong>foreach</strong> 语句来遍历数组。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">namespace ArrayApplication</span><br><span class="line">&#123;</span><br><span class="line">    class MyArray</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">             int []  n = new int[10]; /* n 是一个带有 10 个整数的数组 */</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">         /* 初始化数组 n 中的元素 */         </span><br><span class="line">         for ( int i = 0; i &lt; 10; i++ )</span><br><span class="line">         &#123;</span><br><span class="line">            n[i] = i + 100;</span><br><span class="line">         &#125;</span><br><span class="line"></span><br><span class="line">         /* 输出每个数组元素的值 */</span><br><span class="line">         foreach (int j in n )</span><br><span class="line">         &#123;</span><br><span class="line">            int i = j-100;</span><br><span class="line">            Console.WriteLine(&quot;Element[&#123;0&#125;] = &#123;1&#125;&quot;, i, j);</span><br><span class="line">         &#125;</span><br><span class="line">         Console.ReadKey();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当上面的代码被编译和执行时，它会产生下列结果： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Element[0] = 100</span><br><span class="line">Element[1] = 101</span><br><span class="line">Element[2] = 102</span><br><span class="line">Element[3] = 103</span><br><span class="line">Element[4] = 104</span><br><span class="line">Element[5] = 105</span><br><span class="line">Element[6] = 106</span><br><span class="line">Element[7] = 107</span><br><span class="line">Element[8] = 108</span><br><span class="line">Element[9] = 109</span><br></pre></td></tr></table></figure>
+<h2 id="C-数组细节"><a href="#C-数组细节" class="headerlink" title="C# 数组细节"></a>C# 数组细节</h2><p>在 C# 中，数组是非常重要的，且需要了解更多的细节。下面列出了 C# 程序员必须清楚的一些与数组相关的重要概念：</p>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="http://www.runoob.com/csharp/csharp-multi-dimensional-arrays.html" target="_blank" rel="noopener">多维数组</a></td>
+<td>C# 支持多维数组。多维数组最简单的形式是二维数组。</td>
+</tr>
+<tr>
+<td><a href="http://www.runoob.com/csharp/csharp-jagged-arrays.html" target="_blank" rel="noopener">交错数组</a></td>
+<td>C# 支持交错数组，即数组的数组。</td>
+</tr>
+<tr>
+<td><a href="http://www.runoob.com/csharp/csharp-passing-arrays-to-functions.html" target="_blank" rel="noopener">传递数组给函数</a></td>
+<td>您可以通过指定不带索引的数组名称来给函数传递一个指向数组的指针。</td>
+</tr>
+<tr>
+<td><a href="http://www.runoob.com/csharp/csharp-param-arrays.html" target="_blank" rel="noopener">参数数组</a></td>
+<td>这通常用于传递未知数量的参数给函数。</td>
+</tr>
+<tr>
+<td><a href="http://www.runoob.com/csharp/csharp-array-class.html" target="_blank" rel="noopener">Array 类</a></td>
+<td>在 System 命名空间中定义，是所有数组的基类，并提供了各种用于数组的属性和方法。</td>
+</tr>
+</tbody>
+</table>
+<h1 id="C-字符串（String）"><a href="#C-字符串（String）" class="headerlink" title="C# 字符串（String）"></a>C# 字符串（String）</h1><p>在 C# 中，您可以使用字符数组来表示字符串，但是，更常见的做法是使用 <strong>string</strong> 关键字来声明一个字符串变量。string 关键字是 <strong>System.String</strong> 类的别名。 </p>
+<h2 id="创建-String-对象"><a href="#创建-String-对象" class="headerlink" title="创建 String 对象"></a>创建 String 对象</h2><p>您可以使用以下方法之一来创建 string 对象：</p>
+<ul>
+<li>通过给 String 变量指定一个字符串</li>
+<li>通过使用 String 类构造函数</li>
+<li>通过使用字符串串联运算符（ + ）</li>
+<li>通过检索属性或调用一个返回字符串的方法</li>
+<li>通过格式化方法来转换一个值或对象为它的字符串表示形式</li>
+</ul>
+<p>下面的实例演示了这点：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">namespace StringApplication</span><br><span class="line">&#123;</span><br><span class="line">    class Program</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            //字符串，字符串连接</span><br><span class="line">            string fname, lname;</span><br><span class="line">            fname = &quot;Rowan&quot;;</span><br><span class="line">            lname = &quot;Atkinson&quot;;</span><br><span class="line"></span><br><span class="line">            string fullname = fname + lname;</span><br><span class="line">            Console.WriteLine(&quot;Full Name: &#123;0&#125;&quot;, fullname);</span><br><span class="line"></span><br><span class="line">            //通过使用 string 构造函数</span><br><span class="line">            char[] letters = &#123; &apos;H&apos;, &apos;e&apos;, &apos;l&apos;, &apos;l&apos;,&apos;o&apos; &#125;;</span><br><span class="line">            string greetings = new string(letters);</span><br><span class="line">            Console.WriteLine(&quot;Greetings: &#123;0&#125;&quot;, greetings);</span><br><span class="line"></span><br><span class="line">            //方法返回字符串</span><br><span class="line">            string[] sarray = &#123; &quot;Hello&quot;, &quot;From&quot;, &quot;Tutorials&quot;, &quot;Point&quot; &#125;;</span><br><span class="line">            string message = String.Join(&quot; &quot;, sarray);</span><br><span class="line">            Console.WriteLine(&quot;Message: &#123;0&#125;&quot;, message);</span><br><span class="line"></span><br><span class="line">            //用于转化值的格式化方法</span><br><span class="line">            DateTime waiting = new DateTime(2012, 10, 10, 17, 58, 1);</span><br><span class="line">            string chat = String.Format(&quot;Message sent at &#123;0:t&#125; on &#123;0:D&#125;&quot;, </span><br><span class="line">            waiting);</span><br><span class="line">            Console.WriteLine(&quot;Message: &#123;0&#125;&quot;, chat);</span><br><span class="line">            Console.ReadKey() ;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当上面的代码被编译和执行时，它会产生下列结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Full Name: RowanAtkinson</span><br><span class="line">Greetings: Hello</span><br><span class="line">Message: Hello From Tutorials Point</span><br><span class="line">Message: Message sent at 17:58 on Wednesday, 10 October 2012</span><br></pre></td></tr></table></figure>
+<h2 id="String-类的属性"><a href="#String-类的属性" class="headerlink" title="String 类的属性"></a>String 类的属性</h2><p>String 类有以下两个属性：</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>属性名称 &amp; 描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>Chars</strong> 在当前 <em>String</em> 对象中获取 <em>Char</em> 对象的指定位置。</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Length</strong> 在当前的 <em>String</em> 对象中获取字符数。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="String-类的方法"><a href="#String-类的方法" class="headerlink" title="String 类的方法"></a>String 类的方法</h2><p>String 类有许多方法用于 string 对象的操作。下面的表格提供了一些最常用的方法：</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>方法名称 &amp; 描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>public static int Compare( string strA, string strB )</strong>  比较两个指定的 string 对象，并返回一个表示它们在排列顺序中相对位置的整数。该方法区分大小写。</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>public static int Compare( string strA, string strB, bool ignoreCase )</strong>  比较两个指定的 string 对象，并返回一个表示它们在排列顺序中相对位置的整数。但是，如果布尔参数为真时，该方法不区分大小写。</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>public static string Concat( string str0, string str1 )</strong>  连接两个 string 对象。</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>public static string Concat( string str0, string str1, string str2 )</strong>  连接三个 string 对象。</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>public static string Concat( string str0, string str1, string str2, string str3 )</strong>  连接四个 string 对象。</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>public bool Contains( string value )</strong>  返回一个表示指定 string 对象是否出现在字符串中的值。</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>public static string Copy( string str )</strong>  创建一个与指定字符串具有相同值的新的 String 对象。</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>public void CopyTo( int sourceIndex, char[] destination, int destinationIndex, int count )</strong>  从 string 对象的指定位置开始复制指定数量的字符到 Unicode 字符数组中的指定位置。</td>
+</tr>
+<tr>
+<td>9</td>
+<td><strong>public bool EndsWith( string value )</strong>  判断 string 对象的结尾是否匹配指定的字符串。</td>
+</tr>
+<tr>
+<td>10</td>
+<td><strong>public bool Equals( string value )</strong>  判断当前的 string 对象是否与指定的 string 对象具有相同的值。</td>
+</tr>
+<tr>
+<td>11</td>
+<td><strong>public static bool Equals( string a, string b )</strong>  判断两个指定的 string 对象是否具有相同的值。</td>
+</tr>
+<tr>
+<td>12</td>
+<td><strong>public static string Format( string format, Object arg0 )</strong>  把指定字符串中一个或多个格式项替换为指定对象的字符串表示形式。</td>
+</tr>
+<tr>
+<td>13</td>
+<td><strong>public int IndexOf( char value )</strong>  返回指定 Unicode 字符在当前字符串中第一次出现的索引，索引从 0 开始。</td>
+</tr>
+<tr>
+<td>14</td>
+<td><strong>public int IndexOf( string value )</strong>  返回指定字符串在该实例中第一次出现的索引，索引从 0 开始。</td>
+</tr>
+<tr>
+<td>15</td>
+<td><strong>public int IndexOf( char value, int startIndex )</strong>  返回指定 Unicode 字符从该字符串中指定字符位置开始搜索第一次出现的索引，索引从 0 开始。</td>
+</tr>
+<tr>
+<td>16</td>
+<td><strong>public int IndexOf( string value, int startIndex )</strong>  返回指定字符串从该实例中指定字符位置开始搜索第一次出现的索引，索引从 0 开始。</td>
+</tr>
+<tr>
+<td>17</td>
+<td><strong>public int IndexOfAny( char[] anyOf )</strong>  返回某一个指定的 Unicode 字符数组中任意字符在该实例中第一次出现的索引，索引从 0 开始。</td>
+</tr>
+<tr>
+<td>18</td>
+<td><strong>public int IndexOfAny( char[] anyOf, int startIndex )</strong>  返回某一个指定的 Unicode 字符数组中任意字符从该实例中指定字符位置开始搜索第一次出现的索引，索引从 0 开始。</td>
+</tr>
+<tr>
+<td>19</td>
+<td><strong>public string Insert( int startIndex, string value )</strong>  返回一个新的字符串，其中，指定的字符串被插入在当前 string 对象的指定索引位置。</td>
+</tr>
+<tr>
+<td>20</td>
+<td><strong>public static bool IsNullOrEmpty( string value )</strong>  指示指定的字符串是否为 null 或者是否为一个空的字符串。</td>
+</tr>
+<tr>
+<td>21</td>
+<td><strong>public static string Join( string separator, string[] value )</strong>  连接一个字符串数组中的所有元素，使用指定的分隔符分隔每个元素。</td>
+</tr>
+<tr>
+<td>22</td>
+<td><strong>public static string Join( string separator, string[] value, int startIndex, int count )</strong>  连接接一个字符串数组中的指定位置开始的指定元素，使用指定的分隔符分隔每个元素。</td>
+</tr>
+<tr>
+<td>23</td>
+<td><strong>public int LastIndexOf( char value )</strong>  返回指定 Unicode 字符在当前 string 对象中最后一次出现的索引位置，索引从 0 开始。</td>
+</tr>
+<tr>
+<td>24</td>
+<td><strong>public int LastIndexOf( string value )</strong>  返回指定字符串在当前 string 对象中最后一次出现的索引位置，索引从 0 开始。</td>
+</tr>
+<tr>
+<td>25</td>
+<td><strong>public string Remove( int startIndex )</strong>  移除当前实例中的所有字符，从指定位置开始，一直到最后一个位置为止，并返回字符串。</td>
+</tr>
+<tr>
+<td>26</td>
+<td><strong>public string Remove( int startIndex, int count )</strong>  从当前字符串的指定位置开始移除指定数量的字符，并返回字符串。</td>
+</tr>
+<tr>
+<td>27</td>
+<td><strong>public string Replace( char oldChar, char newChar )</strong>  把当前 string 对象中，所有指定的 Unicode 字符替换为另一个指定的 Unicode 字符，并返回新的字符串。</td>
+</tr>
+<tr>
+<td>28</td>
+<td><strong>public string Replace( string oldValue, string newValue )</strong>  把当前 string 对象中，所有指定的字符串替换为另一个指定的字符串，并返回新的字符串。</td>
+</tr>
+<tr>
+<td>29</td>
+<td><strong>public string[] Split( params char[] separator )</strong>  返回一个字符串数组，包含当前的 string 对象中的子字符串，子字符串是使用指定的 Unicode 字符数组中的元素进行分隔的。</td>
+</tr>
+<tr>
+<td>30</td>
+<td><strong>public string[] Split( char[] separator, int count )</strong>  返回一个字符串数组，包含当前的 string 对象中的子字符串，子字符串是使用指定的 Unicode 字符数组中的元素进行分隔的。int 参数指定要返回的子字符串的最大数目。</td>
+</tr>
+<tr>
+<td>31</td>
+<td><strong>public bool StartsWith( string value )</strong>  判断字符串实例的开头是否匹配指定的字符串。</td>
+</tr>
+<tr>
+<td>32</td>
+<td><strong>public char[] ToCharArray()</strong> 返回一个带有当前 string 对象中所有字符的 Unicode 字符数组。</td>
+</tr>
+<tr>
+<td>33</td>
+<td><strong>public char[] ToCharArray( int startIndex, int length )</strong>  返回一个带有当前 string 对象中所有字符的 Unicode 字符数组，从指定的索引开始，直到指定的长度为止。</td>
+</tr>
+<tr>
+<td>34</td>
+<td><strong>public string ToLower()</strong> 把字符串转换为小写并返回。</td>
+</tr>
+<tr>
+<td>35</td>
+<td><strong>public string ToUpper()</strong> 把字符串转换为大写并返回。</td>
+</tr>
+<tr>
+<td>36</td>
+<td><strong>public string Trim()</strong> 移除当前 String 对象中的所有前导空白字符和后置空白字符。</td>
+</tr>
+</tbody>
+</table>
+<p>上面的方法列表并不详尽，请访问 MSDN 库，查看完整的方法列表和 String 类构造函数。</p>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>下面的实例演示了上面提到的一些方法：</p>
+<p><strong>比较字符串</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line"></span><br><span class="line">namespace StringApplication</span><br><span class="line">&#123;</span><br><span class="line">   class StringProg</span><br><span class="line">   &#123;</span><br><span class="line">      static void Main(string[] args)</span><br><span class="line">      &#123;</span><br><span class="line">         string str1 = &quot;This is test&quot;;</span><br><span class="line">         string str2 = &quot;This is text&quot;;</span><br><span class="line"></span><br><span class="line">         if (String.Compare(str1, str2) == 0)</span><br><span class="line">         &#123;</span><br><span class="line">            Console.WriteLine(str1 + &quot; and &quot; + str2 +  &quot; are equal.&quot;);</span><br><span class="line">         &#125;</span><br><span class="line">         else</span><br><span class="line">         &#123;</span><br><span class="line">            Console.WriteLine(str1 + &quot; and &quot; + str2 + &quot; are not equal.&quot;);</span><br><span class="line">         &#125;</span><br><span class="line">         Console.ReadKey() ;</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当上面的代码被编译和执行时，它会产生下列结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">This is test and This is text are not equal.</span><br></pre></td></tr></table></figure>
+<p><strong>字符串包含字符串：</strong> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line"></span><br><span class="line">namespace StringApplication</span><br><span class="line">&#123;</span><br><span class="line">   class StringProg</span><br><span class="line">   &#123;</span><br><span class="line">      static void Main(string[] args)</span><br><span class="line">      &#123;</span><br><span class="line">         string str = &quot;This is test&quot;;</span><br><span class="line">         if (str.Contains(&quot;test&quot;))</span><br><span class="line">         &#123;</span><br><span class="line">            Console.WriteLine(&quot;The sequence &apos;test&apos; was found.&quot;);</span><br><span class="line">         &#125;</span><br><span class="line">         Console.ReadKey() ;</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当上面的代码被编译和执行时，它会产生下列结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The sequence &apos;test&apos; was found.</span><br></pre></td></tr></table></figure>
+<p><strong>获取子字符串：</strong> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">using System; </span><br><span class="line">namespace StringApplication </span><br><span class="line">&#123;</span><br><span class="line">    class StringProg </span><br><span class="line">    &#123; </span><br><span class="line">        static void Main(string[] args) </span><br><span class="line">        &#123; </span><br><span class="line">            string str = &quot;Last night I dreamt of San Pedro&quot;; </span><br><span class="line">            Console.WriteLine(str); </span><br><span class="line">            string substr = str.Substring(23); </span><br><span class="line">            Console.WriteLine(substr); </span><br><span class="line">            Console.ReadKey() ; </span><br><span class="line">        &#125; </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当上面的代码被编译和执行时，它会产生下列结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Last night I dreamt of San Pedro</span><br><span class="line">San Pedro</span><br></pre></td></tr></table></figure>
+<p><strong>连接字符串：</strong> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line"></span><br><span class="line">namespace StringApplication</span><br><span class="line">&#123;</span><br><span class="line">   class StringProg</span><br><span class="line">   &#123;</span><br><span class="line">      static void Main(string[] args)</span><br><span class="line">      &#123;</span><br><span class="line">         string[] starray = new string[]&#123;&quot;Down the way nights are dark&quot;,</span><br><span class="line">         &quot;And the sun shines daily on the mountain top&quot;,</span><br><span class="line">         &quot;I took a trip on a sailing ship&quot;,</span><br><span class="line">         &quot;And when I reached Jamaica&quot;,</span><br><span class="line">         &quot;I made a stop&quot;&#125;;</span><br><span class="line"></span><br><span class="line">         string str = String.Join(&quot;\n&quot;, starray);</span><br><span class="line">         Console.WriteLine(str);</span><br><span class="line">         Console.ReadKey() ;</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当上面的代码被编译和执行时，它会产生下列结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Down the way nights are dark</span><br><span class="line">And the sun shines daily on the mountain top</span><br><span class="line">I took a trip on a sailing ship</span><br><span class="line">And when I reached Jamaica</span><br><span class="line">I made a stop</span><br></pre></td></tr></table></figure>
+</div></article></div></main><footer><div class="paginator"><a href="/2018/06/26/C-学习之路-11/" class="prev">PREV</a><a href="/2018/06/26/Vue的知识点积累-事件处理/" class="next">NEXT</a></div><div class="copyright"><p>© 2015 - 2018 <a href="http://yoursite.com">SUE</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
