@@ -1,0 +1,517 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> C#学习之路(15) · sonnypp</title><meta name="description" content="C#学习之路(15) - SUE"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="sonnypp"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/sonnypp" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">C#学习之路(15)</h1><div class="post-info">Jun 26, 2018</div><div class="post-content"><h1 id="C-正则表达式"><a href="#C-正则表达式" class="headerlink" title="C# 正则表达式"></a>C# 正则表达式</h1><p><strong>正则表达式</strong> 是一种匹配输入文本的模式。.Net 框架提供了允许这种匹配的正则表达式引擎。模式由一个或多个字符、运算符和结构组成。 </p>
+<h2 id="定义正则表达式"><a href="#定义正则表达式" class="headerlink" title="定义正则表达式"></a>定义正则表达式</h2><p>下面列出了用于定义正则表达式的各种类别的字符、运算符和结构。</p>
+<ul>
+<li>字符转义</li>
+<li>字符类</li>
+<li>定位点</li>
+<li>分组构造</li>
+<li>限定符</li>
+<li>反向引用构造</li>
+<li>备用构造</li>
+<li>替换</li>
+<li>杂项构造</li>
+</ul>
+<h3 id="字符转义"><a href="#字符转义" class="headerlink" title="字符转义"></a>字符转义</h3><p>正则表达式中的反斜杠字符（\）指示其后跟的字符是特殊字符，或应按原义解释该字符。</p>
+<p>下表列出了转义字符：</p>
+<table>
+<thead>
+<tr>
+<th>转义字符</th>
+<th>描述</th>
+<th>模式</th>
+<th style="text-align:center">匹配</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>\a</strong></td>
+<td>与报警 (bell) 符 \u0007 匹配。</td>
+<td>\a</td>
+<td style="text-align:center">“Warning!” + ‘\u0007’ 中的 “\u0007”</td>
+</tr>
+<tr>
+<td><strong>\b</strong></td>
+<td>在字符类中，与退格键 \u0008 匹配。</td>
+<td>[\b]{3,}</td>
+<td style="text-align:center">“\b\b\b\b” 中的 “\b\b\b\b”</td>
+</tr>
+<tr>
+<td><strong>\t</strong></td>
+<td>与制表符 \u0009 匹配。</td>
+<td>(\w+)\t</td>
+<td style="text-align:center">“Name\tAddr\t” 中的 “Name\t” 和 “Addr\t”</td>
+</tr>
+<tr>
+<td><strong>\r</strong></td>
+<td>与回车符 \u000D 匹配。（\r 与换行符 \n 不是等效的。）</td>
+<td>\r\n(\w+)</td>
+<td style="text-align:center">“\r\Hello\nWorld.” 中的 “\r\nHello”</td>
+</tr>
+<tr>
+<td><strong>\v</strong></td>
+<td>与垂直制表符 \u000B 匹配。</td>
+<td>[\v]{2,}</td>
+<td style="text-align:center">“\v\v\v” 中的 “\v\v\v”</td>
+</tr>
+<tr>
+<td><strong>\f</strong></td>
+<td>与换页符 \u000C 匹配。</td>
+<td>[\f]{2,}</td>
+<td style="text-align:center">“\f\f\f” 中的 “\f\f\f”</td>
+</tr>
+<tr>
+<td><strong>\n</strong></td>
+<td>与换行符 \u000A 匹配。</td>
+<td>\r\n(\w+)</td>
+<td style="text-align:center">“\r\Hello\nWorld.” 中的 “\r\nHello”</td>
+</tr>
+<tr>
+<td><strong>\e</strong></td>
+<td>与转义符 \u001B 匹配。</td>
+<td>\e</td>
+<td style="text-align:center">“\x001B” 中的 “\x001B”</td>
+</tr>
+<tr>
+<td><strong>\ nnn</strong></td>
+<td>使用八进制表示形式指定一个字符（nnn 由二到三位数字组成）。</td>
+<td>\w\040\w</td>
+<td style="text-align:center">“a bc d” 中的 “a b” 和 “c d”</td>
+</tr>
+<tr>
+<td><strong>\x nn</strong></td>
+<td>使用十六进制表示形式指定字符（nn 恰好由两位数字组成）。</td>
+<td>\w\x20\w</td>
+<td style="text-align:center">“a bc d” 中的 “a b” 和 “c d”</td>
+</tr>
+<tr>
+<td><strong>\c X \c x</strong></td>
+<td>匹配 X 或 x 指定的 ASCII 控件字符，其中 X 或 x 是控件字符的字母。</td>
+<td>\cC</td>
+<td style="text-align:center">“\x0003” 中的 “\x0003” (Ctrl-C)</td>
+</tr>
+<tr>
+<td><strong>\u nnnn</strong></td>
+<td>使用十六进制表示形式匹配一个 Unicode 字符（由 nnnn 表示的四位数）。</td>
+<td>\w\u0020\w</td>
+<td style="text-align:center">“a bc d” 中的 “a b” 和 “c d”</td>
+</tr>
+<tr>
+<td><strong>\</strong></td>
+<td>在后面带有不识别的转义字符时，与该字符匹配。</td>
+<td>\d+[+-x*]\d+\d+[+-x*\d+</td>
+<td style="text-align:center">“(2+2) <em> 3</em>9” 中的 “2+2” 和 “3*9”</td>
+</tr>
+</tbody>
+</table>
+<h3 id="字符类"><a href="#字符类" class="headerlink" title="字符类"></a>字符类</h3><p>字符类与一组字符中的任何一个字符匹配。</p>
+<p>下表列出了字符类：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">字符类</th>
+<th style="text-align:center">描述</th>
+<th style="text-align:center">模式</th>
+<th style="text-align:center">匹配</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>[character_group]</strong></td>
+<td style="text-align:center">匹配 character_group 中的任何单个字符。 默认情况下，匹配区分大小写。</td>
+<td style="text-align:center">[mn]</td>
+<td style="text-align:center">“mat” 中的 “m”，”moon” 中的 “m” 和 “n”</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>[^character_group]</strong></td>
+<td style="text-align:center">非：与不在 character_group 中的任何单个字符匹配。 默认情况下，character_group 中的字符区分大小写。</td>
+<td style="text-align:center">[^aei]</td>
+<td style="text-align:center">“avail” 中的 “v” 和 “l”</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>[ first - last ]</strong></td>
+<td style="text-align:center">字符范围：与从 first 到 last 的范围中的任何单个字符匹配。</td>
+<td style="text-align:center">[b-d]</td>
+<td style="text-align:center">[b-d]irds 可以匹配 Birds、 Cirds、 Dirds</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>.</strong></td>
+<td style="text-align:center">通配符：与除 \n 之外的任何单个字符匹配。  若要匹配原意句点字符（. 或 \u002E），您必须在该字符前面加上转义符 (.)。</td>
+<td style="text-align:center">a.e</td>
+<td style="text-align:center">“have” 中的 “ave”， “mate” 中的 “ate”</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>\p{ name }</strong></td>
+<td style="text-align:center">与 <em>name</em> 指定的 Unicode 通用类别或命名块中的任何单个字符匹配。</td>
+<td style="text-align:center">\p{Lu}</td>
+<td style="text-align:center">“City Lights” 中的 “C” 和 “L”</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>\P{ name }</strong></td>
+<td style="text-align:center">与不在 <em>name</em> 指定的 Unicode 通用类别或命名块中的任何单个字符匹配。</td>
+<td style="text-align:center">\P{Lu}</td>
+<td style="text-align:center">“City” 中的 “i”、 “t” 和 “y”</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>\w</strong></td>
+<td style="text-align:center">与任何单词字符匹配。</td>
+<td style="text-align:center">\w</td>
+<td style="text-align:center">“Room#1” 中的 “R”、 “o”、 “m” 和 “1”</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>\W</strong></td>
+<td style="text-align:center">与任何非单词字符匹配。</td>
+<td style="text-align:center">\W</td>
+<td style="text-align:center">“Room#1” 中的 “#”</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>\s</strong></td>
+<td style="text-align:center">与任何空白字符匹配。</td>
+<td style="text-align:center">\w\s</td>
+<td style="text-align:center">“ID A1.3” 中的 “D “</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>\S</strong></td>
+<td style="text-align:center">与任何非空白字符匹配。</td>
+<td style="text-align:center">\s\S</td>
+<td style="text-align:center">“int __ctr” 中的 “ _”</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>\d</strong></td>
+<td style="text-align:center">与任何十进制数字匹配。</td>
+<td style="text-align:center">\d</td>
+<td style="text-align:center">“4 = IV” 中的 “4”</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>\D</strong></td>
+<td style="text-align:center">匹配不是十进制数的任意字符。</td>
+<td style="text-align:center">\D</td>
+<td style="text-align:center">“4 = IV” 中的 “ “、 “=”、 “ “、 “I” 和 “V”</td>
+</tr>
+</tbody>
+</table>
+<h3 id="定位点"><a href="#定位点" class="headerlink" title="定位点"></a>定位点</h3><p>定位点或原子零宽度断言会使匹配成功或失败，具体取决于字符串中的当前位置，但它们不会使引擎在字符串中前进或使用字符。</p>
+<p>下表列出了定位点：</p>
+<table>
+<thead>
+<tr>
+<th>断言</th>
+<th>描述</th>
+<th style="text-align:center">模式</th>
+<th style="text-align:center">匹配</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>^</strong></td>
+<td>匹配必须从字符串或一行的开头开始。</td>
+<td style="text-align:center">^\d{3}</td>
+<td style="text-align:center">“567-777-“ 中的 “567”</td>
+</tr>
+<tr>
+<td><strong>$</strong></td>
+<td>匹配必须出现在字符串的末尾或出现在行或字符串末尾的 <strong>\n</strong> 之前。</td>
+<td style="text-align:center">-\d{4}$</td>
+<td style="text-align:center">“8-12-2012” 中的 “-2012”</td>
+</tr>
+<tr>
+<td><strong>\A</strong></td>
+<td>匹配必须出现在字符串的开头。</td>
+<td style="text-align:center">\A\w{4}</td>
+<td style="text-align:center">“Code-007-“ 中的 “Code”</td>
+</tr>
+<tr>
+<td><strong>\Z</strong></td>
+<td>匹配必须出现在字符串的末尾或出现在字符串末尾的 <strong>\n</strong> 之前。</td>
+<td style="text-align:center">-\d{3}\Z</td>
+<td style="text-align:center">“Bond-901-007” 中的 “-007”</td>
+</tr>
+<tr>
+<td><strong>\z</strong></td>
+<td>匹配必须出现在字符串的末尾。</td>
+<td style="text-align:center">-\d{3}\z</td>
+<td style="text-align:center">“-901-333” 中的 “-333”</td>
+</tr>
+<tr>
+<td><strong>\G</strong></td>
+<td>匹配必须出现在上一个匹配结束的地方。</td>
+<td style="text-align:center">\G(\d)</td>
+<td style="text-align:center">“(1)(3)(5)<a href="9">7</a>“ 中的 “(1)”、 “(3)” 和 “(5)”</td>
+</tr>
+<tr>
+<td><strong>\b</strong></td>
+<td>匹配一个单词边界，也就是指单词和空格间的位置。</td>
+<td style="text-align:center">er\b</td>
+<td style="text-align:center">匹配”never”中的”er”，但不能匹配”verb”中的”er”。</td>
+</tr>
+<tr>
+<td><strong>\B</strong></td>
+<td>匹配非单词边界。</td>
+<td style="text-align:center">er\B</td>
+<td style="text-align:center">匹配”verb”中的”er”，但不能匹配”never”中的”er”。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="分组构造"><a href="#分组构造" class="headerlink" title="分组构造"></a>分组构造</h3><p>分组构造描述了正则表达式的子表达式，通常用于捕获输入字符串的子字符串。</p>
+<p>下表列出了分组构造：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">分组构造</th>
+<th style="text-align:center">描述</th>
+<th style="text-align:center">模式</th>
+<th style="text-align:center">匹配</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>( subexpression )</strong></td>
+<td style="text-align:center">捕获匹配的子表达式并将其分配到一个从零开始的序号中。</td>
+<td style="text-align:center">(\w)\1</td>
+<td style="text-align:center">“deep” 中的 “ee”</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>(?&lt; name &gt;subexpression)</strong></td>
+<td style="text-align:center">将匹配的子表达式捕获到一个命名组中。</td>
+<td style="text-align:center">(?&lt; double&gt;\w)\k&lt; double&gt;</td>
+<td style="text-align:center">“deep” 中的 “ee”</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>(?&lt; name1 -name2 &gt;subexpression)</strong></td>
+<td style="text-align:center">定义平衡组定义。</td>
+<td style="text-align:center">(((?’Open’()[^()]<em>)+((?’Close-Open’))[^()]</em>)+)*(?(Open)(?!))$</td>
+<td style="text-align:center">“3+2^((1-3)<em>(3-1))” 中的 “((1-3)</em>(3-1))”</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>(?: subexpression)</strong></td>
+<td style="text-align:center">定义非捕获组。</td>
+<td style="text-align:center">Write(?:Line)?</td>
+<td style="text-align:center">“Console.WriteLine()” 中的 “WriteLine”</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>(?imnsx-imnsx:subexpression)</strong></td>
+<td style="text-align:center">应用或禁用 <em>subexpression</em>中指定的选项。</td>
+<td style="text-align:center">A\d{2}(?i:\w+)\b</td>
+<td style="text-align:center">“A12xl A12XL a12xl” 中的 “A12xl” 和 “A12XL”</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>(?= subexpression)</strong></td>
+<td style="text-align:center">零宽度正预测先行断言。</td>
+<td style="text-align:center">\w+(?=.)</td>
+<td style="text-align:center">“He is. The dog ran. The sun is out.” 中的 “is”、 “ran” 和 “out”</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>(?! subexpression)</strong></td>
+<td style="text-align:center">零宽度负预测先行断言。</td>
+<td style="text-align:center">\b(?!un)\w+\b</td>
+<td style="text-align:center">“unsure sure unity used” 中的 “sure” 和 “used”</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>(?&lt;=subexpression)</strong></td>
+<td style="text-align:center">零宽度正回顾后发断言。</td>
+<td style="text-align:center">(?&lt;=19)\d{2}\b</td>
+<td style="text-align:center">“1851 1999 1950 1905 2003” 中的 “99”、”50”和 “05”</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>(?&lt;! subexpression)</strong></td>
+<td style="text-align:center">零宽度负回顾后发断言。</td>
+<td style="text-align:center">(?</td>
+<td style="text-align:center">“Hi woman Hi man” 中的 “man”</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>(?&gt; subexpression)</strong></td>
+<td style="text-align:center">非回溯（也称为”贪婪”）子表达式。</td>
+<td style="text-align:center"><a href="?&gt;A+B+">13579</a></td>
+<td style="text-align:center">“1ABB 3ABBC 5AB 5AC” 中的 “1ABB”、 “3ABB” 和 “5AB”</td>
+</tr>
+</tbody>
+</table>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Text.RegularExpressions;</span><br><span class="line"></span><br><span class="line">public class Example</span><br><span class="line">&#123;</span><br><span class="line">   public static void Main()</span><br><span class="line">   &#123;</span><br><span class="line">      string input = &quot;1851 1999 1950 1905 2003&quot;;</span><br><span class="line">      string pattern = @&quot;(?&lt;=19)\d&#123;2&#125;\b&quot;;</span><br><span class="line"></span><br><span class="line">      foreach (Match match in Regex.Matches(input, pattern))</span><br><span class="line">         Console.WriteLine(match.Value);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="限定符"><a href="#限定符" class="headerlink" title="限定符"></a>限定符</h3><p>限定符指定在输入字符串中必须存在上一个元素（可以是字符、组或字符类）的多少个实例才能出现匹配项。 限定符包括下表中列出的语言元素。</p>
+<p>下表列出了限定符：</p>
+<table>
+<thead>
+<tr>
+<th>限定符</th>
+<th>描述</th>
+<th>模式</th>
+<th>匹配</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>*</strong></td>
+<td>匹配上一个元素零次或多次。</td>
+<td>\d*.\d</td>
+<td>“.0”、 “19.9”、 “219.9”</td>
+</tr>
+<tr>
+<td><strong>+</strong></td>
+<td>匹配上一个元素一次或多次。</td>
+<td>“be+”</td>
+<td>“been” 中的 “bee”， “bent” 中的 “be”</td>
+</tr>
+<tr>
+<td><strong>?</strong></td>
+<td>匹配上一个元素零次或一次。</td>
+<td>“rai?n”</td>
+<td>“ran”、 “rain”</td>
+</tr>
+<tr>
+<td><strong>{ n }</strong></td>
+<td>匹配上一个元素恰好 n 次。</td>
+<td>“,\d{3}”</td>
+<td>“1,043.6” 中的 “,043”， “9,876,543,210” 中的 “,876”、 “,543” 和 “,210”</td>
+</tr>
+<tr>
+<td><strong>{ n ,}</strong></td>
+<td>匹配上一个元素至少 n 次。</td>
+<td>“\d{2,}”</td>
+<td>“166”、 “29”、 “1930”</td>
+</tr>
+<tr>
+<td><strong>{ n , m }</strong></td>
+<td>匹配上一个元素至少 n 次，但不多于 m 次。</td>
+<td>“\d{3,5}”</td>
+<td>“166”， “17668”， “193024” 中的 “19302”</td>
+</tr>
+<tr>
+<td><strong>*?</strong></td>
+<td>匹配上一个元素零次或多次，但次数尽可能少。</td>
+<td>\d*?.\d</td>
+<td>“.0”、 “19.9”、 “219.9”</td>
+</tr>
+<tr>
+<td><strong>+?</strong></td>
+<td>匹配上一个元素一次或多次，但次数尽可能少。</td>
+<td>“be+?”</td>
+<td>“been” 中的 “be”， “bent” 中的 “be”</td>
+</tr>
+<tr>
+<td><strong>??</strong></td>
+<td>匹配上一个元素零次或一次，但次数尽可能少。</td>
+<td>“rai??n”</td>
+<td>“ran”、 “rain”</td>
+</tr>
+<tr>
+<td><strong>{ n }?</strong></td>
+<td>匹配前导元素恰好 n 次。</td>
+<td>“,\d{3}?”</td>
+<td>“1,043.6” 中的 “,043”， “9,876,543,210” 中的 “,876”、 “,543” 和 “,210”</td>
+</tr>
+<tr>
+<td><strong>{ n ,}?</strong></td>
+<td>匹配上一个元素至少 n 次，但次数尽可能少。</td>
+<td>“\d{2,}?”</td>
+<td>“166”、 “29” 和 “1930”</td>
+</tr>
+<tr>
+<td><strong>{ n , m }?</strong></td>
+<td>匹配上一个元素的次数介于 n 和 m 之间，但次数尽可能少。</td>
+<td>“\d{3,5}?”</td>
+<td>“166”， “17668”， “193024” 中的 “193” 和 “024”</td>
+</tr>
+</tbody>
+</table>
+<h3 id="反向引用构造"><a href="#反向引用构造" class="headerlink" title="反向引用构造"></a>反向引用构造</h3><p>反向引用允许在同一正则表达式中随后标识以前匹配的子表达式。</p>
+<p>下表列出了反向引用构造：</p>
+<table>
+<thead>
+<tr>
+<th>反向引用构造</th>
+<th>描述</th>
+<th>模式</th>
+<th style="text-align:center">匹配</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>\ number</strong></td>
+<td>反向引用。 匹配编号子表达式的值。</td>
+<td>(\w)\1</td>
+<td style="text-align:center">“seek” 中的 “ee”</td>
+</tr>
+<tr>
+<td><strong>\k&lt; name &gt;</strong></td>
+<td>命名反向引用。 匹配命名表达式的值。</td>
+<td>(?&lt; char&gt;\w)\k&lt; char&gt;</td>
+<td style="text-align:center">“seek” 中的 “ee”</td>
+</tr>
+</tbody>
+</table>
+<h3 id="杂项构造"><a href="#杂项构造" class="headerlink" title="杂项构造"></a>杂项构造</h3><p>下表列出了各种杂项构造：</p>
+<table>
+<thead>
+<tr>
+<th>构造</th>
+<th>描述</th>
+<th>实例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>(?imnsx-imnsx)</strong></td>
+<td>在模式中间对诸如不区分大小写这样的选项进行设置或禁用。</td>
+<td>\bA(?i)b\w+\b 匹配 “ABA Able Act” 中的 “ABA” 和 “Able”</td>
+</tr>
+<tr>
+<td><strong>(?#注释)</strong></td>
+<td>内联注释。该注释在第一个右括号处终止。</td>
+<td>\bA(?#匹配以A开头的单词)\w+\b</td>
+</tr>
+<tr>
+<td><strong>#</strong> [行尾]</td>
+<td>该注释以非转义的 # 开头，并继续到行的结尾。</td>
+<td>(?x)\bA\w+\b#匹配以 A 开头的单词</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Regex-类"><a href="#Regex-类" class="headerlink" title="Regex 类"></a>Regex 类</h2><p>Regex 类用于表示一个正则表达式。</p>
+<p>下表列出了 Regex 类中一些常用的方法：</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>方法 &amp; 描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>public bool IsMatch( string input )</strong>  指示 Regex 构造函数中指定的正则表达式是否在指定的输入字符串中找到匹配项。</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>public bool IsMatch( string input, int startat )</strong>  指示 Regex 构造函数中指定的正则表达式是否在指定的输入字符串中找到匹配项，从字符串中指定的开始位置开始。</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>public static bool IsMatch( string input, string pattern )</strong>  指示指定的正则表达式是否在指定的输入字符串中找到匹配项。</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>public MatchCollection Matches( string input )</strong>  在指定的输入字符串中搜索正则表达式的所有匹配项。</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>public string Replace( string input, string replacement )</strong>  在指定的输入字符串中，把所有匹配正则表达式模式的所有匹配的字符串替换为指定的替换字符串。</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>public string[] Split( string input )</strong>  把输入字符串分割为子字符串数组，根据在 Regex 构造函数中指定的正则表达式模式定义的位置进行分割。</td>
+</tr>
+</tbody>
+</table>
+<p>如需了解 Regex 类的完整的属性列表，请参阅微软的 C# 文档。</p>
+<h2 id="实例-1"><a href="#实例-1" class="headerlink" title="实例 1"></a>实例 1</h2><p>下面的实例匹配了以 ‘S’ 开头的单词：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Text.RegularExpressions;</span><br><span class="line"></span><br><span class="line">namespace RegExApplication</span><br><span class="line">&#123;</span><br><span class="line">   class Program</span><br><span class="line">   &#123;</span><br><span class="line">      private static void showMatch(string text, string expr)</span><br><span class="line">      &#123;</span><br><span class="line">         Console.WriteLine(&quot;The Expression: &quot; + expr);</span><br><span class="line">         MatchCollection mc = Regex.Matches(text, expr);</span><br><span class="line">         foreach (Match m in mc)</span><br><span class="line">         &#123;</span><br><span class="line">            Console.WriteLine(m);</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      static void Main(string[] args)</span><br><span class="line">      &#123;</span><br><span class="line">         string str = &quot;A Thousand Splendid Suns&quot;;</span><br><span class="line"></span><br><span class="line">         Console.WriteLine(&quot;Matching words that start with &apos;S&apos;: &quot;);</span><br><span class="line">         showMatch(str, @&quot;\bS\S*&quot;);</span><br><span class="line">         Console.ReadKey();</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当上面的代码被编译和执行时，它会产生下列结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Matching words that start with &apos;S&apos;:</span><br><span class="line">The Expression: \bS\S*</span><br><span class="line">Splendid</span><br><span class="line">Suns</span><br></pre></td></tr></table></figure>
+<h2 id="实例-2"><a href="#实例-2" class="headerlink" title="实例 2"></a>实例 2</h2><p>下面的实例匹配了以 ‘m’ 开头以 ‘e’ 结尾的单词：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Text.RegularExpressions;</span><br><span class="line"></span><br><span class="line">namespace RegExApplication</span><br><span class="line">&#123;</span><br><span class="line">   class Program</span><br><span class="line">   &#123;</span><br><span class="line">      private static void showMatch(string text, string expr)</span><br><span class="line">      &#123;</span><br><span class="line">         Console.WriteLine(&quot;The Expression: &quot; + expr);</span><br><span class="line">         MatchCollection mc = Regex.Matches(text, expr);</span><br><span class="line">         foreach (Match m in mc)</span><br><span class="line">         &#123;</span><br><span class="line">            Console.WriteLine(m);</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      static void Main(string[] args)</span><br><span class="line">      &#123;</span><br><span class="line">         string str = &quot;make maze and manage to measure it&quot;;</span><br><span class="line"></span><br><span class="line">         Console.WriteLine(&quot;Matching words start with &apos;m&apos; and ends with &apos;e&apos;:&quot;);</span><br><span class="line">         showMatch(str, @&quot;\bm\S*e\b&quot;);</span><br><span class="line">         Console.ReadKey();</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;using System;</span><br><span class="line">using System.Text.RegularExpressions;</span><br><span class="line"></span><br><span class="line">namespace RegExApplication</span><br><span class="line">&#123;</span><br><span class="line">   class Program</span><br><span class="line">   &#123;</span><br><span class="line">      private static void showMatch(string text, string expr)</span><br><span class="line">      &#123;</span><br><span class="line">         Console.WriteLine(&quot;The Expression: &quot; + expr);</span><br><span class="line">         MatchCollection mc = Regex.Matches(text, expr);</span><br><span class="line">         foreach (Match m in mc)</span><br><span class="line">         &#123;</span><br><span class="line">            Console.WriteLine(m);</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      static void Main(string[] args)</span><br><span class="line">      &#123;</span><br><span class="line">         string str = &quot;make maze and manage to measure it&quot;;</span><br><span class="line"></span><br><span class="line">         Console.WriteLine(&quot;Matching words start with &apos;m&apos; and ends with &apos;e&apos;:&quot;);</span><br><span class="line">         showMatch(str, @&quot;\bm\S*e\b&quot;);</span><br><span class="line">         Console.ReadKey();</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当上面的代码被编译和执行时，它会产生下列结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Matching words start with &apos;m&apos; and ends with &apos;e&apos;:</span><br><span class="line">The Expression: \bm\S*e\b</span><br><span class="line">make</span><br><span class="line">maze</span><br><span class="line">manage</span><br><span class="line">measure</span><br></pre></td></tr></table></figure>
+<h2 id="实例-3"><a href="#实例-3" class="headerlink" title="实例 3"></a>实例 3</h2><p>下面的实例替换掉多余的空格：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Text.RegularExpressions;</span><br><span class="line"></span><br><span class="line">namespace RegExApplication</span><br><span class="line">&#123;</span><br><span class="line">   class Program</span><br><span class="line">   &#123;</span><br><span class="line">      static void Main(string[] args)</span><br><span class="line">      &#123;</span><br><span class="line">         string input = &quot;Hello   World   &quot;;</span><br><span class="line">         string pattern = &quot;\\s+&quot;;</span><br><span class="line">         string replacement = &quot; &quot;;</span><br><span class="line">         Regex rgx = new Regex(pattern);</span><br><span class="line">         string result = rgx.Replace(input, replacement);</span><br><span class="line"></span><br><span class="line">         Console.WriteLine(&quot;Original String: &#123;0&#125;&quot;, input);</span><br><span class="line">         Console.WriteLine(&quot;Replacement String: &#123;0&#125;&quot;, result);    </span><br><span class="line">         Console.ReadKey();</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当上面的代码被编译和执行时，它会产生下列结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Original String: Hello   World   </span><br><span class="line">Replacement String: Hello World</span><br></pre></td></tr></table></figure>
+</div></article></div></main><footer><div class="paginator"><a href="/2018/06/26/C-学习之路-16/" class="prev">PREV</a><a href="/2018/06/26/C-学习之路-14/" class="next">NEXT</a></div><div class="copyright"><p>© 2015 - 2018 <a href="http://yoursite.com">SUE</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

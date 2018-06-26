@@ -1,0 +1,278 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> C#学习之路(17) · sonnypp</title><meta name="description" content="C#学习之路(17) - SUE"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="sonnypp"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/sonnypp" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">C#学习之路(17)</h1><div class="post-info">Jun 26, 2018</div><div class="post-content"><h1 id="C-文件的输入与输出"><a href="#C-文件的输入与输出" class="headerlink" title="C# 文件的输入与输出"></a>C# 文件的输入与输出</h1><p>一个 <strong>文件</strong> 是一个存储在磁盘中带有指定名称和目录路径的数据集合。当打开文件进行读写时，它变成一个 <strong>流</strong>。</p>
+<p>从根本上说，流是通过通信路径传递的字节序列。有两个主要的流：<strong>输入流</strong> 和 <strong>输出流</strong>。<strong>输入流</strong>用于从文件读取数据（写操作），<strong>输出流</strong>用于向文件写入数据（读操作）。</p>
+<h2 id="C-I-O-类"><a href="#C-I-O-类" class="headerlink" title="C# I/O 类"></a>C# I/O 类</h2><p>System.IO 命名空间有各种不同的类，用于执行各种文件操作，如创建和删除文件、读取或写入文件，关闭文件等。</p>
+<p>下表列出了一些 System.IO 命名空间中常用的非抽象类：</p>
+<table>
+<thead>
+<tr>
+<th>I/O 类</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BinaryReader</td>
+<td>从二进制流读取原始数据。</td>
+</tr>
+<tr>
+<td>BinaryWriter</td>
+<td>以二进制格式写入原始数据。</td>
+</tr>
+<tr>
+<td>BufferedStream</td>
+<td>字节流的临时存储。</td>
+</tr>
+<tr>
+<td>Directory</td>
+<td>有助于操作目录结构。</td>
+</tr>
+<tr>
+<td>DirectoryInfo</td>
+<td>用于对目录执行操作。</td>
+</tr>
+<tr>
+<td>DriveInfo</td>
+<td>提供驱动器的信息。</td>
+</tr>
+<tr>
+<td>File</td>
+<td>有助于处理文件。</td>
+</tr>
+<tr>
+<td>FileInfo</td>
+<td>用于对文件执行操作。</td>
+</tr>
+<tr>
+<td>FileStream</td>
+<td>用于文件中任何位置的读写。</td>
+</tr>
+<tr>
+<td>MemoryStream</td>
+<td>用于随机访问存储在内存中的数据流。</td>
+</tr>
+<tr>
+<td>Path</td>
+<td>对路径信息执行操作。</td>
+</tr>
+<tr>
+<td>StreamReader</td>
+<td>用于从字节流中读取字符。</td>
+</tr>
+<tr>
+<td>StreamWriter</td>
+<td>用于向一个流中写入字符。</td>
+</tr>
+<tr>
+<td>StringReader</td>
+<td>用于读取字符串缓冲区。</td>
+</tr>
+<tr>
+<td>StringWriter</td>
+<td>用于写入字符串缓冲区。</td>
+</tr>
+</tbody>
+</table>
+<p>System.IO 命名空间中的 <strong>FileStream</strong> 类有助于文件的读写与关闭。该类派生自抽象类 Stream。</p>
+<p>您需要创建一个 <strong>FileStream</strong> 对象来创建一个新的文件，或打开一个已有的文件。创建 <strong>FileStream</strong> 对象的语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">FileStream &lt;object_name&gt; = new FileStream( &lt;file_name&gt;,</span><br><span class="line">&lt;FileMode Enumerator&gt;, &lt;FileAccess Enumerator&gt;, &lt;FileShare Enumerator&gt;);</span><br></pre></td></tr></table></figure>
+<p>例如，创建一个 FileStream 对象 <strong>F</strong> 来读取名为 <strong>sample.txt</strong> 的文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FileStream F = new FileStream(&quot;sample.txt&quot;, FileMode.Open, FileAccess.Read, FileShare.Read);</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FileMode</td>
+<td><strong>FileMode</strong> 枚举定义了各种打开文件的方法。FileMode 枚举的成员有：<strong>Append</strong>：打开一个已有的文件，并将光标放置在文件的末尾。如果文件不存在，则创建文件。<strong>Create</strong>：创建一个新的文件。如果文件已存在，则删除旧文件，然后创建新文件。<strong>CreateNew</strong>：指定操作系统应创建一个新的文件。如果文件已存在，则抛出异常。<strong>Open</strong>：打开一个已有的文件。如果文件不存在，则抛出异常。<strong>OpenOrCreate</strong>：指定操作系统应打开一个已有的文件。如果文件不存在，则用指定的名称创建一个新的文件打开。<strong>Truncate</strong>：打开一个已有的文件，文件一旦打开，就将被截断为零字节大小。然后我们可以向文件写入全新的数据，但是保留文件的初始创建日期。如果文件不存在，则抛出异常。</td>
+</tr>
+<tr>
+<td>FileAccess</td>
+<td><strong>FileAccess</strong> 枚举的成员有：<strong>Read</strong>、<strong>ReadWrite</strong> 和 <strong>Write</strong>。</td>
+</tr>
+<tr>
+<td>FileShare</td>
+<td><strong>FileShare</strong> 枚举的成员有：<strong>Inheritable</strong>：允许文件句柄可由子进程继承。Win32 不直接支持此功能。<strong>None</strong>：谢绝共享当前文件。文件关闭前，打开该文件的任何请求（由此进程或另一进程发出的请求）都将失败。<strong>Read</strong>：允许随后打开文件读取。如果未指定此标志，则文件关闭前，任何打开该文件以进行读取的请求（由此进程或另一进程发出的请求）都将失败。但是，即使指定了此标志，仍可能需要附加权限才能够访问该文件。<strong>ReadWrite</strong>：允许随后打开文件读取或写入。如果未指定此标志，则文件关闭前，任何打开该文件以进行读取或写入的请求（由此进程或另一进程发出）都将失败。但是，即使指定了此标志，仍可能需要附加权限才能够访问该文件。<strong>Write</strong>：允许随后打开文件写入。如果未指定此标志，则文件关闭前，任何打开该文件以进行写入的请求（由此进程或另一进过程发出的请求）都将失败。但是，即使指定了此标志，仍可能需要附加权限才能够访问该文件。<strong>Delete</strong>：允许随后删除文件。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>下面的程序演示了 <strong>FileStream</strong> 类的用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.IO;</span><br><span class="line"></span><br><span class="line">namespace FileIOApplication</span><br><span class="line">&#123;</span><br><span class="line">    class Program</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            FileStream F = new FileStream(&quot;test.dat&quot;, </span><br><span class="line">            FileMode.OpenOrCreate, FileAccess.ReadWrite);</span><br><span class="line"></span><br><span class="line">            for (int i = 1; i &lt;= 20; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                F.WriteByte((byte)i);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            F.Position = 0;</span><br><span class="line"></span><br><span class="line">            for (int i = 0; i &lt;= 20; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.Write(F.ReadByte() + &quot; &quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            F.Close();</span><br><span class="line">            Console.ReadKey();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当上面的代码被编译和执行时，它会产生下列结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 -1</span><br></pre></td></tr></table></figure>
+<p>C# 教程</p>
+<p>C# 教程</p>
+<p>C# 简介</p>
+<p>C# 环境</p>
+<p>C# 程序结构</p>
+<p>C# 基本语法</p>
+<p>C# 数据类型</p>
+<p>C# 类型转换</p>
+<p>C# 变量</p>
+<p>C# 常量</p>
+<p>C# 运算符</p>
+<p>C# 判断</p>
+<p>C# 循环</p>
+<p>C# 封装</p>
+<p>C# 方法</p>
+<p>C# 可空类型</p>
+<p>C# 数组（Array）</p>
+<p>C# 字符串（String）</p>
+<p>C# 结构体（Struct）</p>
+<p>C# 枚举（Enum）</p>
+<p>C# 类（Class）</p>
+<p>C# 继承</p>
+<p>C# 多态性</p>
+<p>C# 运算符重载</p>
+<p>C# 接口（Interface）</p>
+<p>C# 命名空间（Namespace）</p>
+<p>C# 预处理器指令</p>
+<p>C# 正则表达式</p>
+<p>C# 异常处理</p>
+<p>C# 文件的输入与输出</p>
+<h2 id="C-高级教程"><a href="#C-高级教程" class="headerlink" title="C# 高级教程"></a>C# 高级教程</h2><p>C# 特性（Attribute）</p>
+<p>C# 反射（Reflection）</p>
+<p>C# 属性（Property）</p>
+<p>C# 索引器（Indexer）</p>
+<p>C# 委托（Delegate）</p>
+<p>C# 事件（Event）</p>
+<p>C# 集合（Collection）</p>
+<p>C# 泛型（Generic）</p>
+<p>C# 匿名方法</p>
+<p>C# 不安全代码</p>
+<p>C# 多线程</p>
+<p> <a href="http://www.runoob.com/csharp/csharp-exception-handling.html" target="_blank" rel="noopener">C# 异常处理</a></p>
+<p><a href="http://www.runoob.com/csharp/csharp-attribute.html" target="_blank" rel="noopener">C# 特性（Attribute）</a> </p>
+<h1 id="C-文件的输入与输出-1"><a href="#C-文件的输入与输出-1" class="headerlink" title="C# 文件的输入与输出"></a>C# 文件的输入与输出</h1><p>一个 <strong>文件</strong> 是一个存储在磁盘中带有指定名称和目录路径的数据集合。当打开文件进行读写时，它变成一个 <strong>流</strong>。</p>
+<p>从根本上说，流是通过通信路径传递的字节序列。有两个主要的流：<strong>输入流</strong> 和 <strong>输出流</strong>。<strong>输入流</strong>用于从文件读取数据（写操作），<strong>输出流</strong>用于向文件写入数据（读操作）。</p>
+<h2 id="C-I-O-类-1"><a href="#C-I-O-类-1" class="headerlink" title="C# I/O 类"></a>C# I/O 类</h2><p>System.IO 命名空间有各种不同的类，用于执行各种文件操作，如创建和删除文件、读取或写入文件，关闭文件等。</p>
+<p>下表列出了一些 System.IO 命名空间中常用的非抽象类：</p>
+<table>
+<thead>
+<tr>
+<th>I/O 类</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BinaryReader</td>
+<td>从二进制流读取原始数据。</td>
+</tr>
+<tr>
+<td>BinaryWriter</td>
+<td>以二进制格式写入原始数据。</td>
+</tr>
+<tr>
+<td>BufferedStream</td>
+<td>字节流的临时存储。</td>
+</tr>
+<tr>
+<td>Directory</td>
+<td>有助于操作目录结构。</td>
+</tr>
+<tr>
+<td>DirectoryInfo</td>
+<td>用于对目录执行操作。</td>
+</tr>
+<tr>
+<td>DriveInfo</td>
+<td>提供驱动器的信息。</td>
+</tr>
+<tr>
+<td>File</td>
+<td>有助于处理文件。</td>
+</tr>
+<tr>
+<td>FileInfo</td>
+<td>用于对文件执行操作。</td>
+</tr>
+<tr>
+<td>FileStream</td>
+<td>用于文件中任何位置的读写。</td>
+</tr>
+<tr>
+<td>MemoryStream</td>
+<td>用于随机访问存储在内存中的数据流。</td>
+</tr>
+<tr>
+<td>Path</td>
+<td>对路径信息执行操作。</td>
+</tr>
+<tr>
+<td>StreamReader</td>
+<td>用于从字节流中读取字符。</td>
+</tr>
+<tr>
+<td>StreamWriter</td>
+<td>用于向一个流中写入字符。</td>
+</tr>
+<tr>
+<td>StringReader</td>
+<td>用于读取字符串缓冲区。</td>
+</tr>
+<tr>
+<td>StringWriter</td>
+<td>用于写入字符串缓冲区。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="FileStream-类"><a href="#FileStream-类" class="headerlink" title="FileStream 类"></a>FileStream 类</h2><p>System.IO 命名空间中的 <strong>FileStream</strong> 类有助于文件的读写与关闭。该类派生自抽象类 Stream。</p>
+<p>您需要创建一个 <strong>FileStream</strong> 对象来创建一个新的文件，或打开一个已有的文件。创建 <strong>FileStream</strong> 对象的语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">FileStream &lt;object_name&gt; = new FileStream( &lt;file_name&gt;,</span><br><span class="line">&lt;FileMode Enumerator&gt;, &lt;FileAccess Enumerator&gt;, &lt;FileShare Enumerator&gt;);</span><br></pre></td></tr></table></figure>
+<p>例如，创建一个 FileStream 对象 <strong>F</strong> 来读取名为 <strong>sample.txt</strong> 的文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FileStream F = new FileStream(&quot;sample.txt&quot;, FileMode.Open, FileAccess.Read, FileShare.Read);</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FileMode</td>
+<td><strong>FileMode</strong> 枚举定义了各种打开文件的方法。FileMode 枚举的成员有：<strong>Append</strong>：打开一个已有的文件，并将光标放置在文件的末尾。如果文件不存在，则创建文件。<strong>Create</strong>：创建一个新的文件。如果文件已存在，则删除旧文件，然后创建新文件。<strong>CreateNew</strong>：指定操作系统应创建一个新的文件。如果文件已存在，则抛出异常。<strong>Open</strong>：打开一个已有的文件。如果文件不存在，则抛出异常。<strong>OpenOrCreate</strong>：指定操作系统应打开一个已有的文件。如果文件不存在，则用指定的名称创建一个新的文件打开。<strong>Truncate</strong>：打开一个已有的文件，文件一旦打开，就将被截断为零字节大小。然后我们可以向文件写入全新的数据，但是保留文件的初始创建日期。如果文件不存在，则抛出异常。</td>
+</tr>
+<tr>
+<td>FileAccess</td>
+<td><strong>FileAccess</strong> 枚举的成员有：<strong>Read</strong>、<strong>ReadWrite</strong> 和 <strong>Write</strong>。</td>
+</tr>
+<tr>
+<td>FileShare</td>
+<td><strong>FileShare</strong> 枚举的成员有：<strong>Inheritable</strong>：允许文件句柄可由子进程继承。Win32 不直接支持此功能。<strong>None</strong>：谢绝共享当前文件。文件关闭前，打开该文件的任何请求（由此进程或另一进程发出的请求）都将失败。<strong>Read</strong>：允许随后打开文件读取。如果未指定此标志，则文件关闭前，任何打开该文件以进行读取的请求（由此进程或另一进程发出的请求）都将失败。但是，即使指定了此标志，仍可能需要附加权限才能够访问该文件。<strong>ReadWrite</strong>：允许随后打开文件读取或写入。如果未指定此标志，则文件关闭前，任何打开该文件以进行读取或写入的请求（由此进程或另一进程发出）都将失败。但是，即使指定了此标志，仍可能需要附加权限才能够访问该文件。<strong>Write</strong>：允许随后打开文件写入。如果未指定此标志，则文件关闭前，任何打开该文件以进行写入的请求（由此进程或另一进过程发出的请求）都将失败。但是，即使指定了此标志，仍可能需要附加权限才能够访问该文件。<strong>Delete</strong>：允许随后删除文件。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="实例-1"><a href="#实例-1" class="headerlink" title="实例"></a>实例</h2><p>下面的程序演示了 <strong>FileStream</strong> 类的用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.IO;</span><br><span class="line"></span><br><span class="line">namespace FileIOApplication</span><br><span class="line">&#123;</span><br><span class="line">    class Program</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            FileStream F = new FileStream(&quot;test.dat&quot;, </span><br><span class="line">            FileMode.OpenOrCreate, FileAccess.ReadWrite);</span><br><span class="line"></span><br><span class="line">            for (int i = 1; i &lt;= 20; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                F.WriteByte((byte)i);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            F.Position = 0;</span><br><span class="line"></span><br><span class="line">            for (int i = 0; i &lt;= 20; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.Write(F.ReadByte() + &quot; &quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            F.Close();</span><br><span class="line">            Console.ReadKey();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当上面的代码被编译和执行时，它会产生下列结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 -1</span><br></pre></td></tr></table></figure>
+<h2 id="C-高级文件操作"><a href="#C-高级文件操作" class="headerlink" title="C# 高级文件操作"></a>C# 高级文件操作</h2><p>上面的实例演示了 C# 中简单的文件操作。但是，要充分利用 C# System.IO 类的强大功能，您需要知道这些类常用的属性和方法。</p>
+<p>在下面的章节中，我们将讨论这些类和它们执行的操作。请单击链接详细了解各个部分的知识：</p>
+<table>
+<thead>
+<tr>
+<th>主题</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="http://www.runoob.com/csharp/csharp-text-files.html" target="_blank" rel="noopener">文本文件的读写</a></td>
+<td>它涉及到文本文件的读写。<strong>StreamReader</strong> 和 <strong>StreamWriter</strong> 类有助于完成文本文件的读写。</td>
+</tr>
+<tr>
+<td><a href="http://www.runoob.com/csharp/csharp-binary-files.html" target="_blank" rel="noopener">二进制文件的读写</a></td>
+<td>它涉及到二进制文件的读写。<strong>BinaryReader</strong> 和 <strong>BinaryWriter</strong> 类有助于完成二进制文件的读写。</td>
+</tr>
+<tr>
+<td><a href="http://www.runoob.com/csharp/csharp-windows-file-system.html" target="_blank" rel="noopener">Windows 文件系统的操作</a></td>
+<td>它让 C# 程序员能够浏览并定位 Windows 文件和目录。</td>
+</tr>
+</tbody>
+</table>
+</div></article></div></main><footer><div class="paginator"><a href="/2018/06/26/C-学习之路-16/" class="next">NEXT</a></div><div class="copyright"><p>© 2015 - 2018 <a href="http://yoursite.com">SUE</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
